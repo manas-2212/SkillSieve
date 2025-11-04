@@ -4,7 +4,8 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+      "start": "node server.js",
+  "build": "echo 'No build step needed for backend'",
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
@@ -20,3 +21,4 @@
     "prisma": "^6.18.0"
   }
 }
+
