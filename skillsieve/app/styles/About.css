@@ -1,0 +1,14 @@
+.about-container {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .about-container h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+  }
+  
+  .about-container p {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: #555;
+  }
+  
