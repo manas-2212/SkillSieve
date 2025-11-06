@@ -19,22 +19,22 @@ const allowedOrigins = [
   //my frontend-yet to deploy!!!!!!!!!!!,
 ];
 
-// Routes
+
 app.use("/api/auth", authRoutes);
 
 // Test database connection route
 app.get("/api/test-db", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
-    res.json({ message: "Database connected ✅", users });
+    res.json({ message: "Database connected", users });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Database connection failed ❌" });
+    res.status(500).json({ error: "Database connection failed" });
   }
 });
 
 app.get("/", (req, res) => {
-  res.send("Backend is running ✅");
+  res.send("Backend is running");
 });
 
 
