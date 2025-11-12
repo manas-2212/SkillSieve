@@ -7,17 +7,17 @@ export default function ProfilePage() {
   const { user, setUser } = useUser();
   const router = useRouter();
 
-  // ✅ Redirect to login only after confirming user is null
+  // Redirect to login only after confirming user is null
   useEffect(() => {
     if (user === null) {
       router.replace("/login");
     }
   }, [user, router]);
 
-  // ⏳ Prevent flicker while deciding (before redirect or render)
+  // Prevent flicker while deciding (before redirect or render)
   if (user === null) return null;
 
-  // ✅ Logout clears user + token and redirects
+  // Logout clears user + token and redirects
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -26,7 +26,7 @@ export default function ProfilePage() {
 
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>Welcome to your profile 👋</h1>
+      <h1>Welcome to your profile </h1>
 
       <button
         onClick={handleLogout}

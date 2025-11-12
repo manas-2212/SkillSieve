@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const prisma = new PrismaClient();
 
-// ===== REGISTER USER =====
+//REGISTER USER  signup 
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -15,16 +15,16 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: "Name, email and password are required" });
     }
 
-    // Check if user exists
+
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    // Hash password
+
     const hashed = await bcrypt.hash(password, 10);
 
-    // Create user
+
     const user = await prisma.user.create({
       data: { name, email, password: hashed },
       select: { id: true, name: true, email: true, createdAt: true },
@@ -65,7 +65,7 @@ export const loginUser = async (req, res) => {
       expiresIn: "1h",
     });
 
-    // ✅ Include user data in response
+
     const userData = {
       id: user.id,
       name: user.name,
@@ -84,7 +84,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// ===== GET USER PROFILE (Protected) =====
+//  GET USER PROFILE (Protected) 
 export const getUserProfile = async (req, res) => {
   try {
     const userId = req.user?.id;

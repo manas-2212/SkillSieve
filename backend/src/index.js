@@ -8,30 +8,24 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(cors());
+app.use(cors());// CORS: allow local + production origin
+
+
 app.use(express.json());
-
-
-// CORS: allow local + production origin
-const allowedOrigins = [
-  "http://localhost:3000",
-  // add your deployed frontend domain(s) here
-  //my frontend-yet to deploy!!!!!!!!!!!,
-];
 
 
 app.use("/api/auth", authRoutes);
 
 // Test database connection route
-app.get("/api/test-db", async (req, res) => {
-  try {
-    const users = await prisma.user.findMany();
-    res.json({ message: "Database connected", users });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Database connection failed" });
-  }
-});
+// app.get("/api/test-db", async (req, res) => {
+//   try {
+//     const users = await prisma.user.findMany();
+//     res.json({ message: "Database connected", users });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Database connection failed" });
+//   }
+// });
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
