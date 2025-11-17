@@ -13,11 +13,11 @@ app.use(express.json());
 
 
 // CORS: allow local + production origin
-const allowedOrigins = [
-  "http://localhost:3000",
-  // add your deployed frontend domain(s) here
-  //my frontend-yet to deploy!!!!!!!!!!!,
-];
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   // add your deployed frontend domain(s) here
+//   //my frontend-yet to deploy!!!!!!!!!!!,
+// ];
 
 
 app.use("/api/auth", authRoutes);
