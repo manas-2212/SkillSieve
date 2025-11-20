@@ -2,22 +2,20 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "../../context/UserContext";
+import "../../styles/Profile.css";
 
 export default function ProfilePage() {
   const { user, setUser } = useUser();
   const router = useRouter();
 
-  // ✅ Redirect to login only after confirming user is null
   useEffect(() => {
     if (user === null) {
       router.replace("/login");
     }
   }, [user, router]);
 
-  // ⏳ Prevent flicker while deciding (before redirect or render)
   if (user === null) return null;
 
-  // ✅ Logout clears user + token and redirects
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -25,23 +23,82 @@ export default function ProfilePage() {
   };
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>Welcome to your profile 👋</h1>
+    <div className="profile-wrapper">
+      {/* Background shapes */}
+      <div className="bg-shape p1"></div>
+      <div className="bg-shape p2"></div>
 
-      <button
-        onClick={handleLogout}
-        style={{
-          marginTop: "1.5rem",
-          padding: "0.75rem 1.5rem",
-          background: "#333",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Logout
-      </button>
+      <div className="profile-container">
+        <div className="profile-header">
+          {/* Avatar */}
+          <div className="profile-avatar">
+            {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+          </div>
+
+          <div className="profile-name">{user?.name}</div>
+          <div className="profile-email">{user?.email}</div>
+
+          {/* Small highlight badge */}
+          <div className="profile-tag">Member Since 2025</div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="profile-stats">
+          <div className="stat-box">
+            <h2></h2>
+            <p>Projects</p>
+          </div>
+
+          <div className="stat-box">
+            <h2></h2>
+            <p>Certificates</p>
+          </div>
+
+          <div className="stat-box">
+            <h2></h2>
+            <p>Completion</p>
+          </div>
+        </div>
+
+        {/* Details Section */}
+        <div className="profile-info">
+          <h3>Profile Details</h3>
+
+          <div className="info-item">
+            <div className="icon bullet"></div>
+            <span>Name:</span> {user?.name}
+          </div>
+
+          <div className="info-item">
+            <div className="icon bullet"></div>
+            <span>Email:</span> {user?.email}
+          </div>
+
+          <div className="info-item">
+            <div className="icon bullet"></div>
+            <span>Account Type:</span> Standard User
+          </div>
+
+          <div className="info-item">
+            <div className="icon bullet"></div>
+            <span>Role:</span> Student
+          </div>
+        </div>
+
+        {/* Activity Section */}
+        <div className="activity-box">
+          <h3>Recent Activity</h3>
+          <ul>
+            <li>Logged in recently</li>
+            <li>Profile updated last week</li>
+            <li>Completed skill test</li>
+          </ul>
+        </div>
+
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
+
       const data = await res.json();
 
       if (res.ok) {
@@ -33,36 +34,47 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="auth-container">
-      <h1>Create Account</h1>
-      <form onSubmit={handleRegister} className="auth-form">
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Create Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Register</button>
-      </form>
-      <p>{message}</p>
-      <a href="/login" className="link">
-        Already have an account? Login
-      </a>
+    <div className="register-wrapper">
+      <div className="bg-shape red1"></div>
+      <div className="bg-shape red2"></div>
+
+      <div className="auth-container">
+        <h1>Create Account</h1>
+
+        <form onSubmit={handleRegister} className="auth-form">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Create Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">Register</button>
+        </form>
+
+        <p className="message">{message}</p>
+
+        <a href="/login" className="link">
+          Already have an account? Login
+        </a>
+      </div>
     </div>
   );
 }

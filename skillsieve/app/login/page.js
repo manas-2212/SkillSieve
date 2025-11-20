@@ -13,11 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
+  useEffect(() => setHydrated(true), []);
 
   useEffect(() => {
     if (hydrated && user) {
@@ -37,26 +33,22 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
-      console.log("🔹 Login API response:", data);
+      console.log("API RESPONSE:", data);
 
       if (res.ok && data.token && data.user) {
-
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-
         setUser(data.user);
-
         alert("Login successful!");
-        console.log("Saved token:", localStorage.getItem("token"));
 
         router.replace("/protectedapp/profile");
       } else {
         alert(data.message || "Invalid credentials");
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Something went wrong. Please try again.");
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Try again.");
     } finally {
       setLoading(false);
     }
@@ -65,35 +57,39 @@ export default function LoginPage() {
   if (!hydrated) return null;
 
   return (
-    <div className="auth-container">
-      <h1>Log In</h1>
+    <div className="login-wrapper">
+      <div className="bg-shape shape1"></div>
+      <div className="bg-shape shape2"></div>
+      <div className="auth-container">
+        <h1>Welcome Back</h1>
 
-      <form className="auth-form" onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form className="auth-form" onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Log In"}
-        </button>
-      </form>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Log In"}
+          </button>
+        </form>
 
-      <p className="toggle-text">
-        Don’t have an account?{" "}
-        <span onClick={() => router.push("/register")}>Sign up</span>
-      </p>
+        <p className="toggle-text">
+          Don’t have an account?{" "}
+          <span onClick={() => router.push("/register")}>Sign Up</span>
+        </p>
+      </div>
     </div>
   );
 }
