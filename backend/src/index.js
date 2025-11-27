@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/authRoutes.js";
+import skillsRoutes from "./routes/skills.routes.js";
+
 
 dotenv.config();
 const app = express();
@@ -21,6 +23,8 @@ app.use(express.json());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/skills", skillsRoutes);
+
 
 // Test database connection route
 app.get("/api/test-db", async (req, res) => {
