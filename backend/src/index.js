@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/authRoutes.js";
 import skillsRoutes from "./routes/skills.routes.js";
+import internshipRoutes from "./routes/internship.routes.js";
+
 
 
 dotenv.config();
@@ -24,6 +26,8 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/skills", skillsRoutes);
+app.use("/api/internships", internshipRoutes);
+
 
 
 // Test database connection route

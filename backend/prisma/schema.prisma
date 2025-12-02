@@ -17,3 +17,13 @@ model User {
   skills    String[]
   createdAt DateTime @default(now())
 }
+
+model Internship {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  company   String
+  skills    String[]
+  location  String?
+  stipend   String?
+  createdAt DateTime @default(now())
+}
