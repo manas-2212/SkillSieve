@@ -5,6 +5,8 @@ import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/authRoutes.js";
 import skillsRoutes from "./routes/skills.routes.js";
 import internshipRoutes from "./routes/internship.routes.js";
+import testRoutes from "./routes/test.routes.js";
+app.use("/api/test", testRoutes);
 
 
 
@@ -12,11 +14,22 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://skillsieve.vercel.app",   // deployed frontend
+      "http://localhost:3000"           // local
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 
-// CORS: allow local + production origin
+
 // const allowedOrigins = [
 //   "http://localhost:3000",
 //   // add your deployed frontend domain(s) here

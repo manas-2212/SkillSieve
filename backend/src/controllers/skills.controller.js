@@ -16,7 +16,9 @@ export const saveSkills = async (req, res) => {
 
     return res.json({ success: true, user: updatedUser });
 
-  } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
+  } catch (err) {
+    console.error("🔥 SAVE SKILLS ERROR:", err);
+    return res.status(500).json({ success: false, error: err.message });
   }
+  
 };
