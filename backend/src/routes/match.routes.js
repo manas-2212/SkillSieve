@@ -3,6 +3,7 @@ import { matchInternships } from "../controllers/match.controller.js";
 
 const router = express.Router();
 
-router.post("/", matchInternships);
+router.get("/", matchInternships);
+router.post("/", matchInternships); 
 
 export default router;

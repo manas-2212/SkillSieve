@@ -15,7 +15,15 @@ export default function Navbar() {
         <Link href="/about">About</Link>
         <Link href="/services">Services</Link>
         <Link href="/contact">Contact</Link>
-        
+
+
+        {user?.isAdmin && (
+          <Link href="/admin" className="admin-link">
+            Admin Dashboard
+          </Link>
+        )}
+
+        {/*protected*/}
         {user ? (
           <Link href="/protectedapp/profile" className="profile-link">
             Your Profile

@@ -24,27 +24,38 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
       const res = await fetch("https://skillsieve.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await res.json();
       console.log("API RESPONSE:", data);
-
+  
       if (res.ok && data.token && data.user) {
+  
+
         localStorage.setItem("token", data.token);
+  
+
         localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("userId", data.user.id); 
-      
+  
+
+        localStorage.setItem("userId", data.user.id);
+  
+
+        localStorage.setItem("isAdmin", data.user.isAdmin);
+  
+
         setUser(data.user);
+  
         alert("Login successful!");
-      
-        router.replace("/protectedapp/profile");      
-      }else {
+  
+        router.replace("/protectedapp/profile");
+      } else {
         alert(data.message || "Invalid credentials");
       }
     } catch (err) {
@@ -54,6 +65,7 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+  
 
   if (!hydrated) return null;
 

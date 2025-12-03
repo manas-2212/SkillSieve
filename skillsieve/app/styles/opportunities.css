@@ -89,4 +89,43 @@
     text-align: center;
     color: #555;
   }
+  .opp-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .opp-search {
+    padding: 10px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .opp-sort {
+    padding: 9px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .opp-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .opp-pagination button {
+    padding: 8px 14px;
+    background: black;
+    color: white;
+    border-radius: 6px;
+    border: none;
+  }
+  
+  .opp-pagination button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
   

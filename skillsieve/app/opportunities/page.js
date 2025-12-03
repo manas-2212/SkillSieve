@@ -6,18 +6,27 @@ export default function OpportunitiesPage() {
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // filters & pagination
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("matchScore");
+  const [order, setOrder] = useState("desc");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const fetchMatches = async () => {
+    setLoading(true);
+
     const userId = localStorage.getItem("userId");
 
-    const res = await fetch("https://skillsieve.onrender.com/api/match", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
-    });
+    const res = await fetch(
+      `https://skillsieve.onrender.com/api/match?userId=${userId}&page=${page}&search=${search}&sortBy=${sortBy}&order=${order}`
+    );
 
     const data = await res.json();
+
     if (data.success) {
       setOpportunities(data.results);
+      setTotalPages(data.totalPages);
     }
 
     setLoading(false);
@@ -25,13 +34,49 @@ export default function OpportunitiesPage() {
 
   useEffect(() => {
     fetchMatches();
-  }, []);
+  }, [page, search, sortBy, order]);
 
-  if (loading) return <p className="loading-text">Loading opportunities...</p>;
+  if (loading)
+    return <p className="loading-text">Loading opportunities...</p>;
 
   return (
     <div className="opp-container">
       <h1 className="opp-heading">Matched Opportunities</h1>
+
+      {/* Filters */}
+      <div className="opp-filters">
+        <input
+          className="opp-search"
+          placeholder="Search by title or company..."
+          value={search}
+          onChange={(e) => {
+            setPage(1);
+            setSearch(e.target.value);
+          }}
+        />
+
+        <select
+          className="opp-sort"
+          value={sortBy}
+          onChange={(e) => {
+            setSortBy(e.target.value);
+            setPage(1);
+          }}
+        >
+          <option value="matchScore">Best Match</option>
+          <option value="title">Title</option>
+          <option value="company">Company</option>
+        </select>
+
+        <select
+          className="opp-sort"
+          value={order}
+          onChange={(e) => setOrder(e.target.value)}
+        >
+          <option value="desc">High → Low</option>
+          <option value="asc">Low → High</option>
+        </select>
+      </div>
 
       {opportunities.length === 0 ? (
         <p className="no-opps">No matching internships found.</p>
@@ -47,7 +92,9 @@ export default function OpportunitiesPage() {
               </p>
 
               <div className="skills-box">
-                <p><strong>Required Skills:</strong></p>
+                <p>
+                  <strong>Required Skills:</strong>
+                </p>
                 <div className="skills-list">
                   {opp.skills.map((skill) => (
                     <span key={skill} className="skill-tag">
@@ -56,11 +103,15 @@ export default function OpportunitiesPage() {
                   ))}
                 </div>
 
-                <p><strong>Your Match:</strong></p>
+                <p>
+                  <strong>Your Match:</strong>
+                </p>
                 <div className="skills-list">
                   {opp.matchedSkills.length > 0 ? (
                     opp.matchedSkills.map((ms) => (
-                      <span key={ms} className="match-tag">{ms}</span>
+                      <span key={ms} className="match-tag">
+                        {ms}
+                      </span>
                     ))
                   ) : (
                     <span className="no-match">No matched skills</span>
@@ -68,13 +119,32 @@ export default function OpportunitiesPage() {
                 </div>
               </div>
 
-              <button className="apply-btn">
-                Apply Now
-              </button>
+              <button className="apply-btn">Apply Now</button>
             </div>
           ))}
         </div>
       )}
+
+      {/* Pagination */}
+      <div className="opp-pagination">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
+          ⬅ Prev
+        </button>
+
+        <span>
+          Page {page} of {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+        >
+          Next ➡
+        </button>
+      </div>
     </div>
   );
 }
