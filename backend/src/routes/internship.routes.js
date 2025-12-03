@@ -1,10 +1,21 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import {
+  createInternship,
+  listInternships,
+  getInternship,
+  updateInternship,
+  updateInternshipSkills,
+  deleteInternship,
+  deleteAllInternships
+} from "../controllers/internship.controller.js";
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
 
+
+//  SEEDING (Internship orgs)
 router.get("/seed", async (req, res) => {
   try {
     const sampleInternships = [
@@ -66,6 +77,9 @@ router.get("/seed", async (req, res) => {
 });
 
 
+
+//  (simple read internships)
+
 router.get("/", async (req, res) => {
   try {
     const internships = await prisma.internship.findMany();
@@ -75,4 +89,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-export default router;
+
+//CRUD routesss
+
+router.post("/create", createInternship);
+router.get("/list", listInternships);
+router.get("/:id", getInternship);
+router.put("/update/:id", updateInternship);
+router.patch("/update-skills/:id", updateInternshipSkills);
+router.dele
