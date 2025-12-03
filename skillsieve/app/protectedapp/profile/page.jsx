@@ -24,13 +24,12 @@ export default function ProfilePage() {
 
   return (
     <div className="profile-wrapper">
-      {/* Background shapes */}
       <div className="bg-shape p1"></div>
       <div className="bg-shape p2"></div>
 
       <div className="profile-container">
         <div className="profile-header">
-          {/* Avatar */}
+
           <div className="profile-avatar">
             {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
           </div>
@@ -38,11 +37,11 @@ export default function ProfilePage() {
           <div className="profile-name">{user?.name}</div>
           <div className="profile-email">{user?.email}</div>
 
-          {/* Small highlight badge */}
+
           <div className="profile-tag">Member Since 2025</div>
         </div>
 
-        {/* Stats Section */}
+
         <div className="profile-stats">
           <div className="stat-box">
             <h2></h2>
@@ -60,7 +59,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Details Section */}
+
         <div className="profile-info">
           <h3>Profile Details</h3>
 
@@ -76,7 +75,7 @@ export default function ProfilePage() {
 
           <div className="info-item">
             <div className="icon bullet"></div>
-            <span>Account Type:</span> Standard User
+            <span>Account Type:{user.isAdmin ? "Admin":"Standard User"}</span>
           </div>
 
           <div className="info-item">
@@ -85,7 +84,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Activity Section */}
+
         <div className="activity-box">
           <h3>Recent Activity</h3>
           <ul>

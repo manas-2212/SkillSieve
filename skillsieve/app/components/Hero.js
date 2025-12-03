@@ -22,7 +22,7 @@ const Hero = () => {
       <div className="hero-content">
         <h1 className="hero-title">Discover Internships That Fit You</h1>
         <p className="hero-subtitle">
-          Upload your skills and let our AI match you with your dream internship.
+          Upload your skills and let our system match you with your dream internship.
         </p>
 
         <button className="hero-btn" onClick={handleClick}>

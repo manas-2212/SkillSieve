@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-content">
         <h3>SkillSieve</h3>
-        <p>Your AI-powered skill & internship guidance platform</p>
+        <p>Your skill & internship guidance platform</p>
 
         <div className="footer-links">
           <a href="/">Home</a>

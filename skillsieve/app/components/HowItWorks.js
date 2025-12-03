@@ -30,7 +30,7 @@ export default function HowItWorks() {
           <p>List your top skills and interests for personalized internship matches.</p>
         </div>
         <div className="step">
-          <h3>2. AI Analysis</h3>
+          <h3>2. AI Analysis (In Progress)</h3>
           <p>Our AI evaluates your profile and finds the best-fit roles for you.</p>
         </div>
         <div className="step">
