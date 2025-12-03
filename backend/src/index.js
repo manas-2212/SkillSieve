@@ -7,6 +7,8 @@ import authRoutes from "./routes/authRoutes.js";
 import skillsRoutes from "./routes/skills.routes.js";
 import internshipRoutes from "./routes/internship.routes.js";
 import testRoutes from "./routes/test.routes.js";
+import matchRoutes from "./routes/match.routes.js";
+
 
 dotenv.config();
 const app = express();
@@ -33,7 +35,7 @@ app.use("/api/test", testRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/skills", skillsRoutes);
 app.use("/api/internships", internshipRoutes);
-
+app.use("/api/match", matchRoutes);
 
 
 app.get("/api/test-db", async (req, res) => {

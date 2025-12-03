@@ -1,32 +1,24 @@
 "use client";
 import { useState } from "react";
+import Select from "react-select";
+import { SKILL_OPTIONS } from "../data/skills";
+import { useRouter } from "next/navigation";
 import "../styles/skills.css";
 
 export default function SkillsPage() {
-  const [input, setInput] = useState("");
-  const [skills, setSkills] = useState([]);
+  const router = useRouter();
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [message, setMessage] = useState("");
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && input.trim() !== "") {
-      if (!skills.includes(input.trim())) {
-        setSkills([...skills, input.trim()]);
-      }
-      setInput("");
-    }
-  };
-
-  const removeSkill = (s) => {
-    setSkills(skills.filter((skill) => skill !== s));
-  };
+  const [saved, setSaved] = useState(false); //for tracking the saved skill changes
 
   const saveSkills = async () => {
-    if (skills.length === 0) {
-      setMessage("Please add at least one skill.");
+    if (selectedSkills.length === 0) {
+      setMessage("Please select at least one skill.");
       return;
     }
 
     const userId = localStorage.getItem("userId");
+    const skills = selectedSkills.map((skill) => skill.value);
 
     const res = await fetch("https://skillsieve.onrender.com/api/skills/save", {
       method: "POST",
@@ -35,8 +27,10 @@ export default function SkillsPage() {
     });
 
     const data = await res.json();
+
     if (data.success) {
-      setMessage("Skills saved successfully! 🎉");
+      setMessage("Skills saved successfully!");
+      setSaved(true); //
     } else {
       setMessage("Error saving skills.");
     }
@@ -44,32 +38,37 @@ export default function SkillsPage() {
 
   return (
     <div className="skills-container">
-      <h1 className="skills-heading">Add Your Skills</h1>
+      <h1 className="skills-heading">Select Your Skills</h1>
 
-      <input
-        className="skills-input"
-        placeholder="Type a skill & press Enter"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
+      <Select
+        isMulti
+        name="skills"
+        options={SKILL_OPTIONS}
+        className="react-select-container"
+        classNamePrefix="react-select"
+        placeholder="Search and choose your skills..."
+        value={selectedSkills}
+        onChange={(value) => {
+          setSelectedSkills(value);
+          setSaved(false); 
+        }}
       />
-
-      <div className="skills-tag-box">
-        {skills.map((s) => (
-          <div key={s} className="skill-tag">
-            {s}
-            <span className="skill-remove" onClick={() => removeSkill(s)}>
-              ×
-            </span>
-          </div>
-        ))}
-      </div>
 
       <button className="skills-btn" onClick={saveSkills}>
         Save Skills
       </button>
 
       {message && <p className="skills-message">{message}</p>}
+
+
+      {saved && (
+        <button
+          className="opp-btn"
+          onClick={() => router.push("/opportunities")}
+        >
+          🔍 Find Opportunities
+        </button>
+      )}
     </div>
   );
 }

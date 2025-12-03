@@ -35,6 +35,23 @@
     gap: 10px;
     justify-content: center;
   }
+
+  .opp-btn {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .opp-btn:hover {
+    background: #0e946d;
+  }
+  
   
   .skill-tag {
     background: #f4f4f4;
@@ -106,3 +123,28 @@
       width: 100%;
     }
   }
+  .react-select-container {
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .react-select__control {
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #d1d5db;
+  }
+  
+  .react-select__multi-value {
+    background: #2563eb;
+    color: white;
+  }
+  
+  .react-select__multi-value__label {
+    color: white;
+  }
+  
+  .react-select__multi-value__remove {
+    color: white;
+  }
+  
