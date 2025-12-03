@@ -6,13 +6,13 @@ import authRoutes from "./routes/authRoutes.js";
 import skillsRoutes from "./routes/skills.routes.js";
 import internshipRoutes from "./routes/internship.routes.js";
 import testRoutes from "./routes/test.routes.js";
-app.use("/api/test", testRoutes);
 
 
 
 dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
+app.use("/api/test", testRoutes);
 
 app.use(
   cors({
