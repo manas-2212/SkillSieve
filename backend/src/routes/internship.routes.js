@@ -14,8 +14,8 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 
+// SEED S(AMPLE INTERNSHIPS)
 
-//  SEEDING (Internship orgs)
 router.get("/seed", async (req, res) => {
   try {
     const sampleInternships = [
@@ -71,30 +71,19 @@ router.get("/seed", async (req, res) => {
       success: true,
       message: "Internships seeded successfully!",
     });
-  } catch (err) {
-    res.json({ success: false, error: err.message });
+  } catch (error) {
+    res.json({ success: false, error: error.message });
   }
 });
 
-
-
-//  (simple read internships)
-
-router.get("/", async (req, res) => {
-  try {
-    const internships = await prisma.internship.findMany();
-    res.json({ success: true, internships });
-  } catch (err) {
-    res.json({ success: false, error: err.message });
-  }
-});
-
-
-//CRUD routesss
-
+// crud routes
 router.post("/create", createInternship);
 router.get("/list", listInternships);
 router.get("/:id", getInternship);
 router.put("/update/:id", updateInternship);
 router.patch("/update-skills/:id", updateInternshipSkills);
-router.dele
+router.delete("/delete/:id", deleteInternship);
+router.delete("/delete-all", deleteAllInternships);
+
+
+export default router;
