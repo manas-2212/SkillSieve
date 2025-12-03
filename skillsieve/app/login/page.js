@@ -38,12 +38,13 @@ export default function LoginPage() {
       if (res.ok && data.token && data.user) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-
+        localStorage.setItem("userId", data.user.id); 
+      
         setUser(data.user);
         alert("Login successful!");
-
-        router.replace("/protectedapp/profile");
-      } else {
+      
+        router.replace("/protectedapp/profile");      
+      }else {
         alert(data.message || "Invalid credentials");
       }
     } catch (err) {

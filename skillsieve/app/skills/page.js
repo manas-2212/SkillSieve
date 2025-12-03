@@ -29,7 +29,6 @@ export default function SkillsPage() {
     const userId = localStorage.getItem("userId");
 
     const res = await fetch("https://skillsieve.onrender.com/api/skills/save", {
-
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, skills }),
